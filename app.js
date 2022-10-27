@@ -18,6 +18,8 @@ const target = {
 
 const map = document.querySelector('#map');
 
+const CountClick = document.querySelector('#count');
+
 let countClicks = 0;
 
 const getDistance = (event, target) => {
@@ -67,10 +69,11 @@ const getDistanceHint = (distance) => {
 	}
 };
 
+const startGame = (e) => {
 
-map.addEventListener('click', e => {
+	const level = document.querySelector('#level');
 
-	countClicks++;
+	const levelValue = +level.value;
 
 	const distance = getDistance(e, target);
 
@@ -78,8 +81,22 @@ map.addEventListener('click', e => {
 
 	document.querySelector("#distance").textContent = distanceHint;
 
+	countClicks++;
+
+	CountClick.textContent = `Осталось кликов: ${levelValue - countClicks}`;
+
 	if (distance < 8) {
 		alert("Клад найден! Сделано кликов: " + countClicks);
 	}
+	if (countClicks === levelValue) {
 
-})
+		alert(`GAME OVER! Ты сделал ${countClicks} кликов!`);
+
+		map.removeEventListener('click', startGame);
+
+	}
+}
+
+
+
+map.addEventListener('click', startGame);
