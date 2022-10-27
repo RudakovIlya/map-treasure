@@ -8,8 +8,73 @@ const getRandomNum = (min, max) => Math.floor(Math.random() * (max - min) + min)
 
 const target = {
 
-	x: getRandomNum(0, 800),
+	x: getRandomNum(0, 400),
 
-	y: getRandomNum(0, 800),
+	y: getRandomNum(0, 400),
 
 }
+
+// 3) Вешаем обработчик событий на нашу карту (img);
+
+const map = document.querySelector('#map');
+
+let countClicks = 0;
+
+const getDistance = (event, target) => {
+
+	const diffX = event.offsetX - target.x;
+
+	const diffY = event.offsetY - target.y;
+
+	return Math.sqrt((diffX * diffX) + (diffY * diffY));
+
+}
+
+const getDistanceHint = (distance) => {
+	if (distance < 10) {
+
+		return "Обожжешься!";
+
+	} else if (distance < 20) {
+
+		return "Очень горячо";
+
+	} else if (distance < 40) {
+
+		return "Горячо";
+
+	} else if (distance < 80) {
+
+		return "Тепло";
+
+	} else if (distance < 160) {
+
+		return "Холодно";
+
+	} else if (distance < 320) {
+
+		return "Очень холодно";
+
+	} else {
+
+		return "Замерзнешь!";
+
+	}
+};
+
+
+map.addEventListener('click', e => {
+
+	countClicks++;
+
+	const distance = getDistance(e, target);
+
+	const distanceHint = getDistanceHint(distance);
+
+	document.querySelector("#distance").textContent = distanceHint;
+
+	if (distance < 8) {
+		alert("Клад найден! Сделано кликов: " + countClicks);
+	}
+
+})
