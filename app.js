@@ -8,9 +8,9 @@ const getRandomNum = (min, max) => Math.floor(Math.random() * (max - min) + min)
 
 const target = {
 
-	x: getRandomNum(0, 400),
+	x: getRandomNum(0, 800),
 
-	y: getRandomNum(0, 400),
+	y: getRandomNum(0, 800),
 
 }
 
@@ -55,7 +55,12 @@ const getDistanceHint = (distance) => {
 
 		return "Очень холодно";
 
-	} else {
+	} else if (distance < 620) {
+
+		return "Настолько холодно, что северный полюс покажется райским островом...";
+
+	}
+	else {
 
 		return "Замерзнешь!";
 
